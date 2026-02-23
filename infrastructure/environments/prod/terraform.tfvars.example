@@ -1,0 +1,26 @@
+region          = "us-east-1"
+certificate_arn = "arn:aws:acm:us-east-1:ACCOUNT_ID:certificate/CERTIFICATE_ID"
+vpn_cidr        = "10.100.0.0/16"
+
+# RDS
+rds_instance_class        = "db.r6g.large"
+rds_allocated_storage     = 50
+rds_max_allocated_storage = 500
+
+# ElastiCache
+redis_node_type = "cache.r6g.large"
+
+# ECS — images are set by CI/CD pipeline (git SHA tags from staging ECR)
+monolith_image    = "STAGING_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/trialflow-monolith:GIT_SHA"
+application_image = "STAGING_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/trialflow-application:GIT_SHA"
+
+# ECS — task sizing
+monolith_cpu        = 1024
+monolith_memory     = 2048
+monolith_min_tasks  = 2
+monolith_max_tasks  = 2
+
+application_cpu        = 1024
+application_memory     = 2048
+application_min_tasks  = 2
+application_max_tasks  = 3

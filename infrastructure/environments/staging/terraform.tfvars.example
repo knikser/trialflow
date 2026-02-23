@@ -1,0 +1,29 @@
+region          = "us-east-1"
+certificate_arn = "arn:aws:acm:us-east-1:ACCOUNT_ID:certificate/CERTIFICATE_ID"
+vpn_cidr        = "10.100.0.0/16"
+
+# RDS
+rds_instance_class      = "db.t3.medium"
+rds_allocated_storage   = 20
+rds_max_allocated_storage = 100
+
+# ElastiCache
+redis_node_type = "cache.t3.micro"
+
+# ECS — images are set by CI/CD pipeline (git SHA tags)
+monolith_image    = "ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/trialflow-monolith:latest"
+application_image = "ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/trialflow-application:latest"
+
+# ECS — task sizing
+monolith_cpu        = 512
+monolith_memory     = 1024
+monolith_min_tasks  = 1
+monolith_max_tasks  = 1
+
+application_cpu        = 512
+application_memory     = 1024
+application_min_tasks  = 1
+application_max_tasks  = 2
+
+# ECR — cross-account access for production
+production_account_id = "PRODUCTION_ACCOUNT_ID"
