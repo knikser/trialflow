@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: trialflow
+      POSTGRES_PASSWORD: trialflow
+      POSTGRES_DB: trialflow
+    ports:
+      - "5455:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U trialflow -d trialflow"]
+      interval: 2s
+      timeout: 5s
+      retries: 10
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  flyway:
+    image: flyway/flyway:10
+    command: -url=jdbc:postgresql://postgres:5432/trialflow -user=trialflow -password=trialflow -connectRetries=60 migrate
+    volumes:
+      - ./migrations:/flyway/sql
+    depends_on:
+      postgres:
+        condition: service_healthy

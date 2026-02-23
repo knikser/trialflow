@@ -1,0 +1,6 @@
+@TrialFlow.Api_HostAddress = http://localhost:5290
+
+GET {{TrialFlow.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
