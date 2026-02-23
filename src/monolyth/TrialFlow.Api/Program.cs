@@ -1,7 +1,6 @@
 using FluentValidation;
 using MassTransit;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
@@ -9,12 +8,9 @@ using TrialFlow.Api.Auth;
 using TrialFlow.Api.Behaviors;
 using TrialFlow.Api.Middleware;
 using TrialFlow.Contracts.Utilities.Api;
-using TrialFlow.Study;
 using TrialFlow.Identity;
 using TrialFlow.Organization;
-using TrialFlow.Study.Infrastructure;
-using TrialFlow.Identity.Infrastructure;
-using TrialFlow.Organization.Infrastructure;
+using TrialFlow.Study;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -78,6 +74,7 @@ builder.Services.AddMassTransit(x =>
 
 // JWT stub auth
 builder.Services.AddJwtStubAuth(builder.Configuration);
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddOpenApi();
 
@@ -88,6 +85,8 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 app.UseJwtStubAuth();
+app.UseSwagger();
+app.UseSwaggerUI();
 
 if (app.Environment.IsDevelopment())
 {

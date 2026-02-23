@@ -9,7 +9,8 @@ public static class OrganizationContextServiceCollectionExtensions
     public static IServiceCollection AddOrganizationContext(this IServiceCollection services, string connectionString)
     {
         services.AddDbContext<OrganizationDbContext>(options =>
-            options.UseNpgsql(connectionString));
+            options.UseNpgsql(connectionString)
+                .UseSnakeCaseNamingConvention());
         return services;
     }
 }

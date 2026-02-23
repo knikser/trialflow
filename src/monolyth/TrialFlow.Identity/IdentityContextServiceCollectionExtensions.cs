@@ -9,7 +9,8 @@ public static class IdentityContextServiceCollectionExtensions
     public static IServiceCollection AddIdentityContext(this IServiceCollection services, string connectionString)
     {
         services.AddDbContext<IdentityDbContext>(options =>
-            options.UseNpgsql(connectionString));
+            options.UseNpgsql(connectionString)
+                .UseSnakeCaseNamingConvention());
         return services;
     }
 }

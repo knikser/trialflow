@@ -9,7 +9,8 @@ public static class StudyContextServiceCollectionExtensions
     public static IServiceCollection AddStudyContext(this IServiceCollection services, string connectionString)
     {
         services.AddDbContext<StudyDbContext>(options =>
-            options.UseNpgsql(connectionString));
+            options.UseNpgsql(connectionString)
+                .UseSnakeCaseNamingConvention());
         return services;
     }
 }
